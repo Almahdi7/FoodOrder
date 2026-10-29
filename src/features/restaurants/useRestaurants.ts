@@ -1,9 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import { getRestaurants } from './restaurantService'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { getRestaurants, type RestaurantFilters } from './restaurantService'
 
-export function useRestaurants() {
+export function useRestaurants(filters: RestaurantFilters = {}) {
   return useQuery({
-    queryKey: ['restaurants'],
-    queryFn: getRestaurants,
+    queryKey: ['restaurants', filters],
+    queryFn: () => getRestaurants(filters),
+    placeholderData: keepPreviousData,
   })
 }
