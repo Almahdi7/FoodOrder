@@ -1,5 +1,7 @@
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
+import Loader from '@/components/ui/Loader'
+import ErrorMessage from '@/components/ui/ErrorMessage'
 
 export default function UiKitPreview() {
   return (
@@ -26,6 +28,23 @@ export default function UiKitPreview() {
           <Input label="Email" type="email" placeholder="you@example.com" />
           <Input label="Password" type="password" error="Use at least 6 characters" />
           <Input label="Disabled" disabled defaultValue="Can't edit this" />
+        </div>
+      </section>
+            <section>
+        <h2 className="section-title mb-3">Loader</h2>
+        <div className="card">
+          <Loader />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="section-title mb-3">Error message</h2>
+        <div className="grid max-w-md gap-4">
+          <ErrorMessage message="Could not load restaurants. Please try again." />
+          <ErrorMessage
+            message="Something went wrong."
+            onRetry={() => alert('Retrying...')}
+          />
         </div>
       </section>
     </div>
