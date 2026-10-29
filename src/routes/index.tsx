@@ -4,6 +4,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import PlaceholderPage from "@/components/PlaceholderPage";
 import LoginPage from "@/features/auth/LoginPage";
 import RegisterPage from "@/features/auth/RegisterPage";
+import UiKitPreview from '@/pages/UiKitPreview'
 
 // Each member replaces ONLY the lines marked with their letter.
 const ph = (title: string, owner: string) => (
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       { path: "/restaurants", element: ph("Restaurants", "N") }, // N
       { path: "/restaurants/:id", element: ph("Restaurant Menu", "N") }, // N
       { path: "/products/:id", element: ph("Product Details", "N") }, // N
+      { path: '/ui-kit', element: <UiKitPreview /> }, // N
       { path: "/login", element: <LoginPage /> }, // M
       { path: "/register", element: <RegisterPage /> }, // M
       { path: "/cart", element: ph("Cart", "L") }, // L
