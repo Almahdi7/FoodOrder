@@ -1,16 +1,27 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Loader from '@/components/ui/Loader'
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import SearchBar from '@/components/SearchBar'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useRestaurants } from './useRestaurants'
 import RestaurantCard from './RestaurantCard'
+import CuisineFilter from './CuisineFilter'
 
 export default function RestaurantsPage() {
   const [search, setSearch] = useState('')
+  const [cuisine, setCuisine] = useState('')
   const debouncedSearch = useDebounce(search)
 
-  const { data, isLoading, isError, refetch } = useRestaurants({ search: debouncedSearch })
+  const { data: allRestaurants } = useRestaurants()
+  const cuisines = useMemo(
+    () => [...new Set((allRestaurants ?? []).map((r) => r.cuisine))],
+    [allRestaurants],
+  )
+
+  const { data, isLoading, isError, refetch } = useRestaurants({
+    search: debouncedSearch,
+    cuisine,
+  })
 
   return (
     <div className="container-page py-10">
@@ -20,8 +31,12 @@ export default function RestaurantsPage() {
         value={search}
         onChange={setSearch}
         placeholder="Search restaurants by name"
-        className="mb-6 max-w-md"
+        className="mb-4 max-w-md"
       />
+
+      <div className="mb-6">
+        <CuisineFilter options={cuisines} value={cuisine} onChange={setCuisine} />
+      </div>
 
       {isLoading && <Loader label="Loading restaurants..." />}
 
@@ -30,7 +45,7 @@ export default function RestaurantsPage() {
       )}
 
       {data && data.length === 0 && (
-        <p className="text-ink-soft">No restaurants match your search.</p>
+        <p className="text-ink-soft">No restaurants match your filters.</p>
       )}
 
       {data && data.length > 0 && (
