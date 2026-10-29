@@ -1,6 +1,7 @@
 import Loader from '@/components/ui/Loader'
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { useRestaurants } from './useRestaurants'
+import RestaurantCard from './RestaurantCard'
 
 export default function RestaurantsPage() {
   const { data, isLoading, isError, refetch } = useRestaurants()
@@ -21,11 +22,11 @@ export default function RestaurantsPage() {
   return (
     <div className="container-page py-10">
       <h1 className="page-title mb-6">Restaurants</h1>
-      <ul className="list-disc pl-5">
+           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {data?.map((restaurant) => (
-          <li key={restaurant.id}>{restaurant.name}</li>
+          <RestaurantCard key={restaurant.id} restaurant={restaurant} />
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
