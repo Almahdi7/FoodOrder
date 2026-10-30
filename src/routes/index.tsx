@@ -4,6 +4,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import PlaceholderPage from "@/components/PlaceholderPage";
 import LoginPage from "@/features/auth/LoginPage";
 import RegisterPage from "@/features/auth/RegisterPage";
+import Cart from "@/features/cart/Cart";
 
 // Each member replaces ONLY the lines marked with their letter.
 const ph = (title: string, owner: string) => (
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
       { path: "/products/:id", element: ph("Product Details", "N") }, // N
       { path: "/login", element: <LoginPage /> }, // M
       { path: "/register", element: <RegisterPage /> }, // M
-      { path: "/cart", element: ph("Cart", "L") }, // L
+      { path: "/cart", element: <Cart /> }, // L // L
 
       // ---------- Customer only ----------
       {
