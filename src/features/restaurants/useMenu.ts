@@ -1,6 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import {
   getCategories,
+  getProduct,
   getProducts,
   getRestaurant,
   type ProductFilters,
@@ -28,5 +29,12 @@ export function useProducts(restaurantId: string, filters: ProductFilters = {}) 
     queryFn: () => getProducts(restaurantId, filters),
     enabled: Boolean(restaurantId),
     placeholderData: keepPreviousData,
+  })
+}
+export function useProduct(id: string) {
+  return useQuery({
+    queryKey: ['product', id],
+    queryFn: () => getProduct(id),
+    enabled: Boolean(id),
   })
 }

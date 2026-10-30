@@ -8,6 +8,7 @@ import UiKitPreview from "@/pages/UiKitPreview";
 import RestaurantsPage from "@/features/restaurants/RestaurantsPage";
 import AddressesPage from "@/features/profile/AddressesPage";
 import RestaurantMenuPage from "@/features/restaurants/RestaurantMenuPage";
+import ProductDetailsPage from "@/features/restaurants/ProductDetailsPage";
 // Each member replaces ONLY the lines marked with their letter.
 const ph = (title: string, owner: string) => (
   <PlaceholderPage title={title} owner={owner} />
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
       { path: "/", element: ph("Home", "N") }, // N
       { path: "/restaurants", element: <RestaurantsPage /> }, // N
       { path: "/restaurants/:id", element: <RestaurantMenuPage /> }, // N
-      { path: "/products/:id", element: ph("Product Details", "N") }, // N
+      { path: "/products/:id", element: <ProductDetailsPage /> }, // N
       { path: "/ui-kit", element: <UiKitPreview /> }, // N
       { path: "/login", element: <LoginPage /> }, // M
       { path: "/register", element: <RegisterPage /> }, // M

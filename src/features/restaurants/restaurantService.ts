@@ -43,3 +43,7 @@ export async function getProducts(
   })
   return data
 }
+export async function getProduct(id: string): Promise<Product> {
+  const { data } = await http.get<Product>(`/products/${id}`)
+  return data
+}
