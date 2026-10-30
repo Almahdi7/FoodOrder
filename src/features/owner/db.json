@@ -1,0 +1,52 @@
+{
+  "restaurants": [
+    {
+      "id": "1",
+      "name": "مطعم البيت الدمشقي",
+      "cuisine": "مشاوي ووجبات سريعة",
+      "isOpen": true
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "restaurantId": 1,
+      "title": "وجبة شيش طاووق",
+      "price": 12,
+      "category": "مأكولات رئيسية",
+      "stock": 15,
+      "thumbnail": "https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=300"
+    },
+    {
+      "id": "2",
+      "restaurantId": 1,
+      "title": "بيتزا مارغريتا",
+      "price": 10,
+      "category": "معجنات",
+      "stock": 10,
+      "thumbnail": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "restaurantId": 1,
+      "status": "Pending",
+      "total": 22,
+      "createdAt": "2026-10-28"
+    }
+  ],
+  "categories": [
+    {
+      "name": "بيتزا",
+      "restaurantId": 1,
+      "id": "EfxBL2iDiaI"
+    },
+    {
+      "name": "مقبلات",
+      "restaurantId": 1,
+      "id": "BE3p24tgWoc"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
