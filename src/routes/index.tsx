@@ -4,9 +4,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import PlaceholderPage from "@/components/PlaceholderPage";
 import LoginPage from "@/features/auth/LoginPage";
 import RegisterPage from "@/features/auth/RegisterPage";
-import UiKitPreview from '@/pages/UiKitPreview'
+import UiKitPreview from "@/pages/UiKitPreview";
 import RestaurantsPage from "@/features/restaurants/RestaurantsPage";
-
+import AddressesPage from "@/features/profile/AddressesPage";
 // Each member replaces ONLY the lines marked with their letter.
 const ph = (title: string, owner: string) => (
   <PlaceholderPage title={title} owner={owner} />
@@ -18,10 +18,10 @@ export const router = createBrowserRouter([
     children: [
       // ---------- Public ----------
       { path: "/", element: ph("Home", "N") }, // N
-     { path: "/restaurants", element: <RestaurantsPage /> }, // N
+      { path: "/restaurants", element: <RestaurantsPage /> }, // N
       { path: "/restaurants/:id", element: ph("Restaurant Menu", "N") }, // N
       { path: "/products/:id", element: ph("Product Details", "N") }, // N
-      { path: '/ui-kit', element: <UiKitPreview /> }, // N
+      { path: "/ui-kit", element: <UiKitPreview /> }, // N
       { path: "/login", element: <LoginPage /> }, // M
       { path: "/register", element: <RegisterPage /> }, // M
       { path: "/cart", element: ph("Cart", "L") }, // L
@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
           { path: "/orders", element: ph("My Orders", "L") }, // L
           { path: "/orders/:id", element: ph("Order Details", "L") }, // L
           { path: "/profile", element: ph("Profile", "M") }, // M
-          { path: "/addresses", element: ph("Addresses", "M") }, // M
+          { path: "/addresses", element: <AddressesPage /> },
         ],
       },
 
