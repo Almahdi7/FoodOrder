@@ -1,14 +1,23 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 import Loader from '@/components/ui/Loader'
 import ErrorMessage from '@/components/ui/ErrorMessage'
+import SearchBar from '@/components/SearchBar'
+import { useDebounce } from '@/hooks/useDebounce'
 import { cn } from '@/utils/cn'
-import { useProducts, useRestaurant } from './useMenu'
+import { useCategories, useProducts, useRestaurant } from './useMenu'
 import ProductCard from './ProductCard'
+import CategoryFilter from './CategoryFilter'
 
 export default function RestaurantMenuPage() {
   const { id = '' } = useParams<{ id: string }>()
+  const [search, setSearch] = useState('')
+  const [categoryId, setCategoryId] = useState(0)
+  const debouncedSearch = useDebounce(search)
+
   const restaurantQuery = useRestaurant(id)
-  const productsQuery = useProducts(id)
+  const categoriesQuery = useCategories(id)
+  const productsQuery = useProducts(id, { categoryId, search: debouncedSearch })
 
   if (restaurantQuery.isLoading) return <Loader label="Loading restaurant..." />
 
@@ -27,7 +36,9 @@ export default function RestaurantMenuPage() {
   }
 
   const restaurant = restaurantQuery.data
+  const categories = categoriesQuery.data ?? []
   const products = productsQuery.data
+  const hasFilters = categoryId !== 0 || debouncedSearch !== ''
 
   return (
     <div className="container-page py-8">
@@ -70,6 +81,23 @@ export default function RestaurantMenuPage() {
 
       <h2 className="section-title mb-4 mt-8">Menu</h2>
 
+      <SearchBar
+        value={search}
+        onChange={setSearch}
+        placeholder="Search the menu"
+        className="mb-4 max-w-md"
+      />
+
+      {categories.length > 0 && (
+        <div className="mb-6">
+          <CategoryFilter
+            categories={categories}
+            value={categoryId}
+            onChange={setCategoryId}
+          />
+        </div>
+      )}
+
       {productsQuery.isLoading && <Loader label="Loading menu..." />}
 
       {productsQuery.isError && (
@@ -80,7 +108,9 @@ export default function RestaurantMenuPage() {
       )}
 
       {products && products.length === 0 && (
-        <p className="text-ink-soft">This restaurant has no items yet.</p>
+        <p className="text-ink-soft">
+          {hasFilters ? 'No items match your search.' : 'This restaurant has no items yet.'}
+        </p>
       )}
 
       {products && products.length > 0 && (
