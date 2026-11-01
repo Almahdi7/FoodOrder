@@ -4,6 +4,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import PlaceholderPage from "@/components/PlaceholderPage";
 import LoginPage from "@/features/auth/LoginPage";
 import RegisterPage from "@/features/auth/RegisterPage";
+import Cart from "@/features/cart/Cart";
+
 import UiKitPreview from "@/pages/UiKitPreview";
 import RestaurantsPage from "@/features/restaurants/RestaurantsPage";
 import AddressesPage from "@/features/profile/AddressesPage";
@@ -26,7 +28,7 @@ export const router = createBrowserRouter([
       { path: "/ui-kit", element: <UiKitPreview /> }, // N
       { path: "/login", element: <LoginPage /> }, // M
       { path: "/register", element: <RegisterPage /> }, // M
-      { path: "/cart", element: ph("Cart", "L") }, // L
+      { path: "/cart", element: <Cart /> }, // L // L
 
       // ---------- Customer only ----------
       {
