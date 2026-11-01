@@ -1,15 +1,17 @@
-# React + TypeScript + Vite
 # Food Delivery Frontend
 
 ## Run locally
 
 1. Install dependencies: `npm install`
 2. Copy `.env.example` to `.env.local` (this file is not committed)
-3. Start the mock API (terminal 1): `cd mock-api`, `npm install`, `npm start`
+3. Start the mock API (terminal 1): `cd mock-api`, then `npm install`, then `npm start`
 4. Start the app (terminal 2): `npm run dev`
 
 The app needs both running. If a page shows a data error, check that `.env.local`
 exists and the mock API is running on http://localhost:3001.
+
+---
+# React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
