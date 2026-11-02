@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router'
 import Loader from '@/components/ui/Loader'
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import SearchBar from '@/components/SearchBar'
@@ -8,13 +9,14 @@ import RestaurantCard from './RestaurantCard'
 import CuisineFilter from './CuisineFilter'
 
 export default function RestaurantsPage() {
-  const [search, setSearch] = useState('')
-  const [cuisine, setCuisine] = useState('')
+  const [searchParams] = useSearchParams()
+  const [search, setSearch] = useState(searchParams.get('search') ?? '')
+  const [cuisine, setCuisine] = useState(searchParams.get('cuisine') ?? '')
   const debouncedSearch = useDebounce(search)
 
   const { data: allRestaurants } = useRestaurants()
   const cuisines = useMemo(
-    () => [...new Set((allRestaurants ?? []).map((r) => r.cuisine))],
+    () => Array.from(new Set((allRestaurants ?? []).map((r) => r.cuisine))),
     [allRestaurants],
   )
 
