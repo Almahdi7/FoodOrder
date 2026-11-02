@@ -1,11 +1,11 @@
+import { useState } from 'react'
+import type { FormEvent } from 'react'
+import { Link, useNavigate } from 'react-router'
 import Loader from '@/components/ui/Loader'
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { useAuth } from '@/features/auth/UseAuth'
 import RestaurantCard from '@/features/restaurants/RestaurantCard'
 import { useTopRestaurants } from './useTopRestaurants'
-import { useState } from 'react'
-import type { FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router'
 
 const STEPS = [
   { title: 'Choose a restaurant', text: 'Browse restaurants and find what you feel like eating.' },
@@ -17,13 +17,13 @@ export default function HomePage() {
   const { user } = useAuth()
   const topQuery = useTopRestaurants()
   const navigate = useNavigate()
-const [query, setQuery] = useState('')
+  const [query, setQuery] = useState('')
 
-function handleSearch(e: FormEvent) {
-  e.preventDefault()
-  const term = query.trim()
-  navigate(term ? `/restaurants?search=${encodeURIComponent(term)}` : '/restaurants')
-}
+  function handleSearch(e: FormEvent) {
+    e.preventDefault()
+    const term = query.trim()
+    navigate(term ? `/restaurants?search=${encodeURIComponent(term)}` : '/restaurants')
+  }
 
   return (
     <div>
@@ -37,19 +37,21 @@ function handleSearch(e: FormEvent) {
             <p className="mt-4 text-lg text-ink-soft">
               Pick a restaurant, build your order and track it until it reaches your door.
             </p>
+
             <form onSubmit={handleSearch} className="mt-6 flex max-w-md gap-2">
-  <input
-    type="text"
-    value={query}
-    onChange={(e) => setQuery(e.target.value)}
-    placeholder="Search restaurants by name"
-    className="input flex-1"
-    aria-label="Search restaurants"
-  />
-  <button type="submit" className="btn btn-primary">
-    Search
-  </button>
-</form>
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search restaurants by name"
+                className="input flex-1"
+                aria-label="Search restaurants"
+              />
+              <button type="submit" className="btn btn-primary">
+                Search
+              </button>
+            </form>
+
             <div className="mt-4 flex flex-wrap gap-3">
               <Link to="/restaurants" className="btn btn-primary btn-lg">
                 Order now
@@ -68,7 +70,15 @@ function handleSearch(e: FormEvent) {
           >
             <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/10" />
             <div className="absolute -bottom-12 -left-8 h-56 w-56 rounded-full bg-white/10" />
-            <svg viewBox="0 0 120 120" className="relative h-40 w-40 text-white" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              viewBox="0 0 120 120"
+              className="relative h-40 w-40 text-white"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <circle cx="60" cy="60" r="34" />
               <circle cx="60" cy="60" r="20" opacity="0.5" />
               <path d="M14 28v22a7 7 0 0 0 14 0V28M21 28v64" />
