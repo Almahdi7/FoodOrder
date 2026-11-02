@@ -29,8 +29,6 @@ export default function ProductDetailsPage() {
       </div>
     )
   }
-
-
   return (
     <div className="container-page py-8">
       <Link
