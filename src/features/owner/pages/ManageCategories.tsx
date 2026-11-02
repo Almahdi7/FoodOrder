@@ -6,6 +6,7 @@ import CategoriesTable from '../components/CategoriesTable';
 import CategoryModal from '../components/CategoryModal';
 
 const initialCategoryState: Category = {
+  id: 0,
   name: '',
   restaurantId: 1,
 };

@@ -12,8 +12,8 @@ const useCategories = () => {
             try{
                 const res = await getCategories();
                 setCategories(res.data);
-            }catch(err){
-                setError(err.message);
+            }catch(error){
+                setError(error instanceof Error ? error.message : String(error));
             }finally{
                 setLoading(false);
             }

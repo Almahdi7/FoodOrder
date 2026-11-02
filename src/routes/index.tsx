@@ -5,6 +5,7 @@ import PlaceholderPage from "@/components/PlaceholderPage";
 import LoginPage from "@/features/auth/LoginPage";
 import RegisterPage from "@/features/auth/RegisterPage";
 import Cart from "@/features/cart/Cart";
+import ManageCategories from "@/features/owner/pages/ManageCategories";
 
 import UiKitPreview from "@/pages/UiKitPreview";
 import RestaurantsPage from "@/features/restaurants/RestaurantsPage";
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
           { path: "/owner", element: ph("Owner Dashboard", "R") }, // R
           { path: "/owner/restaurant", element: ph("Restaurant Profile", "R") }, // R
           { path: "/owner/products", element: ph("Manage Products", "R") }, // R
-          { path: "/owner/categories", element: ph("Manage Categories", "R") }, // R
+          { path: "/owner/categories", element: <ManageCategories /> }, // R
           { path: "/owner/orders", element: ph("Manage Orders", "R") }, // R
         ],
       },
