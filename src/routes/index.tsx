@@ -12,6 +12,9 @@ import RestaurantsPage from "@/features/restaurants/RestaurantsPage";
 import AddressesPage from "@/features/profile/AddressesPage";
 import RestaurantMenuPage from "@/features/restaurants/RestaurantMenuPage";
 import ProductDetailsPage from "@/features/restaurants/ProductDetailsPage";
+
+import ProfilePage from "@/features/profile/ProfilePage";
+import NotFoundPage from "@/pages/NotFoundPage";
 // Each member replaces ONLY the lines marked with their letter.
 const ph = (title: string, owner: string) => (
   <PlaceholderPage title={title} owner={owner} />
@@ -31,6 +34,12 @@ export const router = createBrowserRouter([
       { path: "/register", element: <RegisterPage /> }, // M
       { path: "/cart", element: <Cart /> }, // L // L
 
+      // ---------- Any authenticated user ----------
+      {
+        element: <ProtectedRoute />,
+        children: [{ path: "/profile", element: <ProfilePage /> }],
+      },
+
       // ---------- Customer only ----------
       {
         element: <ProtectedRoute allowedRoles={["customer"]} />,
@@ -38,7 +47,6 @@ export const router = createBrowserRouter([
           { path: "/checkout", element: ph("Checkout", "L") }, // L
           { path: "/orders", element: ph("My Orders", "L") }, // L
           { path: "/orders/:id", element: ph("Order Details", "L") }, // L
-          { path: "/profile", element: ph("Profile", "M") }, // M
           { path: "/addresses", element: <AddressesPage /> },
         ],
       },
@@ -55,7 +63,7 @@ export const router = createBrowserRouter([
         ],
       },
 
-      { path: "*", element: ph("404 Not Found", "M") }, // M
+      { path: "*", element: <NotFoundPage /> }, // M
     ],
   },
 ]);
