@@ -2,10 +2,28 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router";
 import { useCart } from "./useCart";
+import { useAddresses } from "@/features/profile/useAddresses";
+import type { Address } from "@/types";
 import "./Checkout.css";
 
 const Checkout = () => {
     const { items } = useCart();
+
+    const {
+        data: rawAddresses,
+        isLoading,
+        isError: requestError,
+    } = useAddresses();
+
+    const addresses: Address[] = Array.isArray(rawAddresses)
+        ? rawAddresses
+        : [];
+
+    const isError =
+        requestError ||
+        (!isLoading &&
+            rawAddresses !== undefined &&
+            !Array.isArray(rawAddresses));
 
     const [phoneNumber, setPhoneNumber] = useState("");
     const [fullName, setFullName] = useState("");
@@ -13,6 +31,8 @@ const Checkout = () => {
     const [fullNameError, setFullNameError] = useState("");
     const [phoneNumberError, setPhoneNumberError] = useState("");
     const [isValidated, setIsValidated] = useState(false);
+    const [selectedAddressId, setSelectedAddressId] = useState("");
+    const [addressError, setAddressError] = useState("");
     const total = items.reduce((sum, item) => {
         return sum + item.price * item.quantity;
     }, 0);
@@ -39,11 +59,20 @@ const Checkout = () => {
                 : ""
         );
 
+        const addressInvalid = !addresses.some(
+            (address) => address.id === selectedAddressId
+        );
+
+        setAddressError(
+            addressInvalid ? "Please select a delivery address" : ""
+        );
+
         setPhoneNumberError(
             phoneInvalid ? "Invalid phone number" : ""
         );
 
-        if (nameInvalid || phoneInvalid) {
+
+        if (nameInvalid || phoneInvalid || addressInvalid) {
             setIsValidated(false);
             return;
         }
@@ -63,6 +92,7 @@ const Checkout = () => {
                 </div>
             </main>
         );
+
     }
 
     return (
@@ -113,6 +143,57 @@ const Checkout = () => {
                     rows={4}
                 />
 
+
+
+                <section className="checkout-addresses">
+                    <h2>Delivery Address</h2>
+
+                    {isLoading && <p>Loading addresses...</p>}
+
+                    {isError && (
+                        <p>Failed to load addresses.</p>
+                    )}
+
+                    {!isLoading && !isError && addresses.length === 0 && (
+                        <p>No saved addresses found.</p>
+                    )}
+
+
+                    {!isLoading && !isError && Array.isArray(addresses) &&
+                        addresses.map((address) => (
+                            <label
+                                key={address.id}
+                                className="checkout-address-option"
+                            >
+                                <input
+                                    type="radio"
+                                    name="deliveryAddress"
+                                    value={address.id}
+                                    checked={selectedAddressId === address.id}
+                                    onChange={() => {
+                                        setSelectedAddressId(address.id);
+                                        setAddressError("");
+                                        setIsValidated(false);
+                                    }}
+                                />
+
+                                <span>
+                                    <strong>{address.label}</strong>
+                                    <span>{address.street}, {address.city}</span>
+                                    <small>{address.details}</small>
+                                </span>
+                            </label>
+
+                        ))}
+
+                </section>
+                {addressError && (
+                    <p className="checkout-error">{addressError}</p>
+                )}
+                <Link to="/addresses" className="checkout-add-address">
+                    + Add New Address
+                </Link>
+
                 <section className="checkout-summary">
                     <h2>Order Summary</h2>
 
@@ -143,9 +224,8 @@ const Checkout = () => {
 
                 {isValidated && (
                     <p className="checkout-success">
-                        Your checkout information is valid!
-                        Delivery address and order placement will be
-                        added in the next tasks.
+                        Your checkout information and delivery address are valid!
+                        Order placement will be added in the next task.
                     </p>
                 )}
             </form>
