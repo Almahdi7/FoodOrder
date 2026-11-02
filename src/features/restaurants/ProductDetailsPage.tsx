@@ -30,7 +30,6 @@ export default function ProductDetailsPage() {
     )
   }
 
-  const canOrder = product.isAvailable && (restaurant?.isOpen ?? true)
 
   return (
     <div className="container-page py-8">
