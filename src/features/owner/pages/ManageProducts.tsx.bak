@@ -6,6 +6,7 @@ import ProductModal from '../components/ProductModal';
 import ProductsTable from '../components/ProductsTable';
 
 const initialProductState: Product = {
+  id:0,
     title: '',
     price: 0,
     category: '',
