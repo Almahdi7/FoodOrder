@@ -5,6 +5,7 @@ import PlaceholderPage from "@/components/PlaceholderPage";
 import LoginPage from "@/features/auth/LoginPage";
 import RegisterPage from "@/features/auth/RegisterPage";
 import Cart from "@/features/cart/Cart";
+import Checkout from "@/features/cart/Checkout";
 import ManageCategories from "@/features/owner/pages/ManageCategories";
 
 import UiKitPreview from "@/pages/UiKitPreview";
@@ -45,7 +46,7 @@ export const router = createBrowserRouter([
       {
         element: <ProtectedRoute allowedRoles={["customer"]} />,
         children: [
-          { path: "/checkout", element: ph("Checkout", "L") }, // L
+          { path: "/checkout", element: <Checkout /> }, // L
           { path: "/orders", element: ph("My Orders", "L") }, // L
           { path: "/orders/:id", element: ph("Order Details", "L") }, // L
           { path: "/addresses", element: <AddressesPage /> },
