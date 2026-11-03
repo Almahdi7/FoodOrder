@@ -15,6 +15,7 @@ import ProductDetailsPage from "@/features/restaurants/ProductDetailsPage";
 
 import ProfilePage from "@/features/profile/ProfilePage";
 import NotFoundPage from "@/pages/NotFoundPage";
+import HomePage from "@/features/home/HomePage";
 // Each member replaces ONLY the lines marked with their letter.
 const ph = (title: string, owner: string) => (
   <PlaceholderPage title={title} owner={owner} />
@@ -25,7 +26,7 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       // ---------- Public ----------
-      { path: "/", element: ph("Home", "N") }, // N
+      { path: "/", element: <HomePage /> }, // N
       { path: "/restaurants", element: <RestaurantsPage /> }, // N
       { path: "/restaurants/:id", element: <RestaurantMenuPage /> }, // N
       { path: "/products/:id", element: <ProductDetailsPage /> }, // N
