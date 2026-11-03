@@ -1,29 +1,27 @@
-import { useEffect, useState } from 'react'
-import type { Category } from '../types/Category';
-import { getCategories } from '../api/catrgoryService';
+import { useEffect, useState } from "react";
+import type { Category } from "../types/Category";
+import { getCategories } from "../api/categoryService";
 
 const useCategories = () => {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try{
-                const res = await getCategories();
-                setCategories(res.data);
-            }catch(err){
-                setError(err instanceof Error ? err.message : String(err));
-            }finally{
-                setLoading(false);
-            }
-        };
-        fetchCategories();
-    }, []);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await getCategories();
+        setCategories(res.data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err));
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
 
-  return (
-    {categories, loading, error}
-  )
-}
+  return { categories, loading, error };
+};
 
-export default useCategories
+export default useCategories;
