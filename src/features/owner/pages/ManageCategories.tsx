@@ -5,7 +5,7 @@ import {
   addCategory,
   deleteCategory,
   updateCategory,
-} from "../api/categoryService";
+} from "../api/categoeyService";
 import CategoriesTable from "../components/CategoriesTable";
 import CategoryModal from "../components/CategoryModal";
 

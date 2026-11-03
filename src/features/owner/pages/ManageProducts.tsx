@@ -75,9 +75,7 @@ const ManageProducts = () => {
 
   if (loading)
     return (
-      <div className="text-center p-6 text-gray-600">
-        Loading products...
-      </div>
+      <div className="text-center p-6 text-gray-600">Loading products...</div>
     );
   if (error) return <div className="text-center p-6 text-red-500">{error}</div>;
 

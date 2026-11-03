@@ -4,8 +4,11 @@ import ProtectedRoute from "./ProtectedRoute";
 import NotFoundPage from "@/pages/NotFoundPage";
 import { publicRoutes } from "./publicRoutes";
 import { authRoutes } from "@/features/auth/routes";
-import { profileRoutes } from "@/features/profile/routes";
-import { cartRoutes } from "@/features/cart/routes";
+import {
+  profileRoutes,
+  customerProfileRoutes,
+} from "@/features/profile/routes";
+import { cartPublicRoutes, cartRoutes } from "@/features/cart/routes";
 import { ownerRoutes } from "@/features/owner/routes";
 
 export const router = createBrowserRouter([
@@ -14,13 +17,14 @@ export const router = createBrowserRouter([
     children: [
       ...publicRoutes,
       ...authRoutes,
+      ...cartPublicRoutes,
       {
         element: <ProtectedRoute />,
         children: profileRoutes,
       },
       {
         element: <ProtectedRoute allowedRoles={["customer"]} />,
-        children: cartRoutes,
+        children: [...cartRoutes, ...customerProfileRoutes],
       },
       {
         element: <ProtectedRoute allowedRoles={["owner"]} />,

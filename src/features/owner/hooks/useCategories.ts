@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Category } from "../types/Category";
-import { getCategories } from "../api/categoryService";
+import { getCategories } from "../api/categoeyService";
 
 const useCategories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
