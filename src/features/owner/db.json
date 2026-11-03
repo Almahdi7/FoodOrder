@@ -2,8 +2,8 @@
   "restaurants": [
     {
       "id": "1",
-      "name": "مطعم البيت الدمشقي",
-      "cuisine": "مشاوي ووجبات سريعة",
+      "name": "Damascus House Restaurant",
+      "cuisine": "Grills and fast food",
       "isOpen": true
     }
   ],
@@ -11,18 +11,18 @@
     {
       "id": "1",
       "restaurantId": 1,
-      "title": "وجبة شيش طاووق",
+      "title": "Shish Tawook Meal",
       "price": 12,
-      "category": "مأكولات رئيسية",
+      "category": "Main dishes",
       "stock": 15,
       "thumbnail": "https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=300"
     },
     {
       "id": "2",
       "restaurantId": 1,
-      "title": "بيتزا مارغريتا",
+      "title": "Margherita Pizza",
       "price": 10,
-      "category": "معجنات",
+      "category": "Pastries",
       "stock": 10,
       "thumbnail": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300"
     }
@@ -38,12 +38,12 @@
   ],
   "categories": [
     {
-      "name": "بيتزا",
+      "name": "Pizza",
       "restaurantId": 1,
       "id": "EfxBL2iDiaI"
     },
     {
-      "name": "مقبلات",
+      "name": "Appetizers",
       "restaurantId": 1,
       "id": "BE3p24tgWoc"
     }

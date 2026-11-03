@@ -5,7 +5,7 @@ import {
   addCategory,
   deleteCategory,
   updateCategory,
-} from "../api/catrgoryService";
+} from "../api/categoeyService";
 import CategoriesTable from "../components/CategoriesTable";
 import CategoryModal from "../components/CategoryModal";
 
@@ -30,38 +30,36 @@ const ManageCategories = () => {
     try {
       if (modalMode === "add") {
         await addCategory(currentCategory);
-        alert("تم إضافة التصنيف بنجاح!");
+        alert("Category added successfully!");
       } else {
         if (!currentCategory.id) return;
         await updateCategory(currentCategory.id, currentCategory);
-        alert("تم تحديث التصنيف بنجاح!");
+        alert("Category updated successfully!");
       }
       setIsModalOpen(false);
     } catch (err) {
       console.error(err);
-      alert("حدث خطأ أثناء حفظ البيانات");
+      alert("An error occurred while saving the data");
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (confirm("هل أنت متأكد من حذف هذا التصنيف؟")) {
+    if (confirm("Are you sure you want to delete this category?")) {
       try {
         await deleteCategory(id);
-        alert("تم حذف التصنيف بنجاح!");
+        alert("Category deleted successfully!");
       } catch (err) {
         console.error(err);
-        alert("حدث خطأ أثناء الحذف");
+        alert("An error occurred while deleting");
       }
     }
   };
 
   if (loading)
     return (
-      <div className="text-center p-6 text-gray-600">
-        جاري تحميل المنتجات...
-      </div>
+      <div className="text-center p-6 text-gray-600">Loading categories...</div>
     );
   if (error) return <div className="text-center p-6 text-red-500">{error}</div>;
 

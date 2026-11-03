@@ -46,38 +46,36 @@ const ManageProducts = () => {
     try {
       if (modalMode === "add") {
         await addProduct(currentProduct);
-        alert("تم إضافة المنتج بنجاح!");
+        alert("Product added successfully!");
       } else {
         if (!currentProduct.id) return;
         await updateProduct(currentProduct.id, currentProduct);
-        alert("تم تحديث المنتج بنجاح!");
+        alert("Product updated successfully!");
       }
       setIsModalOpen(false);
     } catch (err) {
       console.error(err);
-      alert("حدث خطأ أثناء حفظ البيانات");
+      alert("An error occurred while saving the data");
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (confirm("هل أنت متأكد من حذف هذا المنتج؟")) {
+    if (confirm("Are you sure you want to delete this product?")) {
       try {
         await deleteProduct(id);
-        alert("تم حذف المنتج بنجاح!");
+        alert("Product deleted successfully!");
       } catch (err) {
         console.error(err);
-        alert("حدث خطأ أثناء الحذف");
+        alert("An error occurred while deleting");
       }
     }
   };
 
   if (loading)
     return (
-      <div className="text-center p-6 text-gray-600">
-        جاري تحميل المنتجات...
-      </div>
+      <div className="text-center p-6 text-gray-600">Loading products...</div>
     );
   if (error) return <div className="text-center p-6 text-red-500">{error}</div>;
 
