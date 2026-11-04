@@ -11,7 +11,7 @@ import ProductsTable from "../components/ProductsTable";
 
 const initialProductState: Product = {
   id: 0,
-  title: "",
+  name: "",
   price: 0,
   category: "",
   thumbnail: "",

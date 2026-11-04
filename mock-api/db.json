@@ -55,11 +55,6 @@
   ],
   "categories": [
     {
-      "id": 1,
-      "restaurantId": 1,
-      "name": "Grills"
-    },
-    {
       "id": 2,
       "restaurantId": 1,
       "name": "Drinks"
@@ -97,39 +92,10 @@
   ],
   "products": [
     {
-      "id": 1,
-      "restaurantId": 1,
-      "categoryId": 1,
-      "name": "Mixed Grill",
-      "description": "Kebab, shish tawook and lamb ribs",
-      "price": 12,
-      "image": "https://picsum.photos/seed/p1/600/400",
-      "isAvailable": true
-    },
-    {
-      "id": 2,
-      "restaurantId": 1,
-      "categoryId": 1,
-      "name": "Shish Tawook",
-      "description": "Marinated chicken skewers with garlic sauce",
-      "price": 9,
-      "image": "https://picsum.photos/seed/p2/600/400",
-      "isAvailable": true
-    },
-    {
-      "id": 3,
-      "restaurantId": 1,
-      "categoryId": 1,
-      "name": "Lamb Kebab",
-      "description": "Minced lamb skewers with grilled tomato",
-      "price": 11,
-      "image": "https://picsum.photos/seed/p3/600/400",
-      "isAvailable": true
-    },
-    {
       "id": 4,
       "restaurantId": 1,
       "categoryId": 2,
+      "category" : "Drinks",
       "name": "Ayran",
       "description": "Cold salted yogurt drink",
       "price": 2,
@@ -140,6 +106,7 @@
       "id": 5,
       "restaurantId": 1,
       "categoryId": 2,
+      "category" : "Drinks",
       "name": "Lemon Mint",
       "description": "Fresh lemon with mint",
       "price": 3,
@@ -150,6 +117,7 @@
       "id": 6,
       "restaurantId": 2,
       "categoryId": 3,
+      "category": "Pizza",
       "name": "Margherita",
       "description": "Tomato, mozzarella and basil",
       "price": 8,
@@ -160,6 +128,7 @@
       "id": 7,
       "restaurantId": 2,
       "categoryId": 3,
+      "category": "Pizza",
       "name": "Pepperoni",
       "description": "Mozzarella and spicy pepperoni",
       "price": 10,
@@ -170,6 +139,7 @@
       "id": 8,
       "restaurantId": 2,
       "categoryId": 3,
+      "category": "Pizza",
       "name": "Four Cheese",
       "description": "Mozzarella, gorgonzola, parmesan, fontina",
       "price": 11,
@@ -180,6 +150,7 @@
       "id": 9,
       "restaurantId": 2,
       "categoryId": 4,
+      "category": "Pasta",
       "name": "Spaghetti Carbonara",
       "description": "Egg, pecorino and crispy beef bacon",
       "price": 9,
@@ -190,6 +161,7 @@
       "id": 10,
       "restaurantId": 2,
       "categoryId": 4,
+      "category": "Pasta",
       "name": "Lasagna",
       "description": "Baked layers of pasta, beef ragu and bechamel",
       "price": 10,
@@ -200,6 +172,7 @@
       "id": 11,
       "restaurantId": 3,
       "categoryId": 5,
+      "category": "Burgers",
       "name": "Classic Burger",
       "description": "Beef patty, lettuce, tomato and pickles",
       "price": 7,
@@ -210,6 +183,7 @@
       "id": 12,
       "restaurantId": 3,
       "categoryId": 5,
+      "category": "Burgers",
       "name": "Double Cheese",
       "description": "Two patties with melted cheddar",
       "price": 9,
@@ -220,6 +194,7 @@
       "id": 13,
       "restaurantId": 3,
       "categoryId": 5,
+      "category": "Burgers",
       "name": "Chicken Burger",
       "description": "Crispy chicken with garlic mayo",
       "price": 8,
@@ -230,6 +205,7 @@
       "id": 14,
       "restaurantId": 3,
       "categoryId": 6,
+      "category": "Sides",
       "name": "French Fries",
       "description": "Crispy salted fries",
       "price": 3,
@@ -240,6 +216,7 @@
       "id": 15,
       "restaurantId": 3,
       "categoryId": 6,
+      "category": "Sides",
       "name": "Onion Rings",
       "description": "Golden battered onion rings",
       "price": 4,
@@ -250,6 +227,7 @@
       "id": 16,
       "restaurantId": 4,
       "categoryId": 7,
+      "category": "Rolls",
       "name": "California Roll",
       "description": "Crab, avocado and cucumber",
       "price": 9,
@@ -260,6 +238,7 @@
       "id": 17,
       "restaurantId": 4,
       "categoryId": 7,
+      "category": "Rolls",
       "name": "Dragon Roll",
       "description": "Shrimp tempura topped with avocado",
       "price": 12,
@@ -270,6 +249,7 @@
       "id": 18,
       "restaurantId": 4,
       "categoryId": 7,
+      "category": "Rolls",
       "name": "Salmon Roll",
       "description": "Fresh salmon and cream cheese",
       "price": 11,
@@ -280,6 +260,7 @@
       "id": 19,
       "restaurantId": 4,
       "categoryId": 8,
+      "category" : "Drinks",
       "name": "Green Tea",
       "description": "Hot Japanese green tea",
       "price": 2,
@@ -290,6 +271,7 @@
       "id": 20,
       "restaurantId": 4,
       "categoryId": 8,
+      "category" : "Drinks",
       "name": "Iced Tea",
       "description": "Peach iced tea",
       "price": 3,
@@ -298,53 +280,53 @@
     }
   ],
   "orders": [
-  {
-    "id": 1,
-    "customerName": "Ahmad Mohammed",
-    "createdAt": "2026-11-03T11:54:00.000Z",
-    "items": [
-      {
-        "menuItem": {
-          "id": "item-1",
-          "name": "Chicken Burger",
-          "description": "Crispy chicken with garlic mayo",
-          "price": 8.50,
-          "imageUrl": "https://example.com/images/burger.jpg"
+    {
+      "id": 1,
+      "customerName": "Ahmad Mohammed",
+      "createdAt": "2026-11-03T11:54:00.000Z",
+      "items": [
+        {
+          "menuItem": {
+            "id": "item-1",
+            "name": "Chicken Burger",
+            "description": "Crispy chicken with garlic mayo",
+            "price": 8.5,
+            "imageUrl": "https://example.com/images/burger.jpg"
+          },
+          "quantity": 2
         },
-        "quantity": 2
-      },
-      {
-        "menuItem": {
-          "id": "item-2",
-          "name": "French Fries",
-          "description": "Crispy salted fries",
-          "price": 3.00,
-          "imageUrl": "https://example.com/images/fries.jpg"
-        },
-        "quantity": 1
-      }
-    ],
-    "total": 20.00,
-    "status": "preparing"
-  },
-  {
-    "id": 2,
-    "customerName": "Sarah Ahmad",
-    "createdAt": "2026-11-04T15:20:00.000Z",
-    "items": [
-      {
-        "menuItem": {
-          "id": "item-3",
-          "name": "Salmon Roll",
-          "description": "Shrimp tempura topped with avocado",
-          "price": 12.00,
-          "imageUrl": "https://example.com/images/pizza.jpg"
-        },
-        "quantity": 1
-      }
-    ],
-    "total": 12.00,
-    "status": "pending"
-  }
+        {
+          "menuItem": {
+            "id": "item-2",
+            "name": "French Fries",
+            "description": "Crispy salted fries",
+            "price": 3,
+            "imageUrl": "https://example.com/images/fries.jpg"
+          },
+          "quantity": 1
+        }
+      ],
+      "total": 20,
+      "status": "preparing"
+    },
+    {
+      "id": 2,
+      "customerName": "Sarah Ahmad",
+      "createdAt": "2026-11-04T15:20:00.000Z",
+      "items": [
+        {
+          "menuItem": {
+            "id": "item-3",
+            "name": "Salmon Roll",
+            "description": "Shrimp tempura topped with avocado",
+            "price": 12,
+            "imageUrl": "https://example.com/images/pizza.jpg"
+          },
+          "quantity": 1
+        }
+      ],
+      "total": 12,
+      "status": "delivered"
+    }
   ]
 }
