@@ -1,0 +1,236 @@
+
+import { useState, type FormEvent } from "react";
+import { Link } from "react-router";
+import { useCart } from "./useCart";
+import { useAddresses } from "@/features/profile/useAddresses";
+import type { Address } from "@/types";
+import "./Checkout.css";
+
+const Checkout = () => {
+    const { items } = useCart();
+
+    const {
+        data: rawAddresses,
+        isLoading,
+        isError: requestError,
+    } = useAddresses();
+
+    const addresses: Address[] = Array.isArray(rawAddresses)
+        ? rawAddresses
+        : [];
+
+    const isError =
+        requestError ||
+        (!isLoading &&
+            rawAddresses !== undefined &&
+            !Array.isArray(rawAddresses));
+
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [orderNotes, setOrderNotes] = useState("");
+    const [fullNameError, setFullNameError] = useState("");
+    const [phoneNumberError, setPhoneNumberError] = useState("");
+    const [isValidated, setIsValidated] = useState(false);
+    const [selectedAddressId, setSelectedAddressId] = useState("");
+    const [addressError, setAddressError] = useState("");
+    const total = items.reduce((sum, item) => {
+        return sum + item.price * item.quantity;
+    }, 0);
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const nameInvalid = fullName.trim().length < 3;
+
+        const phoneDigits = phoneNumber.replace(/\D/g, "");
+
+        const isValidFormat = /^\+?[0-9\s()-]+$/.test(
+            phoneNumber.trim()
+        );
+
+        const phoneInvalid =
+            !isValidFormat ||
+            phoneDigits.length < 7 ||
+            phoneDigits.length > 15;
+
+        setFullNameError(
+            nameInvalid
+                ? "Full name must be at least 3 characters"
+                : ""
+        );
+
+        const addressInvalid = !addresses.some(
+            (address) => address.id === selectedAddressId
+        );
+
+        setAddressError(
+            addressInvalid ? "Please select a delivery address" : ""
+        );
+
+        setPhoneNumberError(
+            phoneInvalid ? "Invalid phone number" : ""
+        );
+
+
+        if (nameInvalid || phoneInvalid || addressInvalid) {
+            setIsValidated(false);
+            return;
+        }
+
+        setIsValidated(true);
+    };
+
+    if (items.length === 0) {
+        return (
+            <main className="checkout-page">
+                <h1>Checkout</h1>
+
+                <div className="checkout-empty">
+                    <h2>Your cart is empty</h2>
+                    <p>Add some food before proceeding to checkout.</p>
+                    <Link to="/restaurants">Browse Restaurants</Link>
+                </div>
+            </main>
+        );
+
+    }
+
+    return (
+        <main className="checkout-page">
+            <h1>Checkout</h1>
+
+            <form className="checkout-form" onSubmit={handleSubmit}>
+                <h2>Customer Information</h2>
+
+                <label htmlFor="fullName">Full Name</label>
+                <input
+                    id="fullName"
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={fullName}
+                    onChange={(e) => {
+                        setFullName(e.target.value);
+                        setIsValidated(false);
+                    }}
+                />
+                {fullNameError && (
+                    <p className="checkout-error">{fullNameError}</p>
+                )}
+
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <input
+                    id="phoneNumber"
+                    type="tel"
+                    placeholder="Enter your phone number"
+                    value={phoneNumber}
+                    onChange={(e) => {
+                        setPhoneNumber(e.target.value);
+                        setIsValidated(false);
+                    }}
+                />
+                {phoneNumberError && (
+                    <p className="checkout-error">{phoneNumberError}</p>
+                )}
+
+                <label htmlFor="orderNotes">
+                    Order Notes (Optional)
+                </label>
+                <textarea
+                    id="orderNotes"
+                    value={orderNotes}
+                    onChange={(e) => setOrderNotes(e.target.value)}
+                    placeholder="Any special instructions?"
+                    rows={4}
+                />
+
+
+
+                <section className="checkout-addresses">
+                    <h2>Delivery Address</h2>
+
+                    {isLoading && <p>Loading addresses...</p>}
+
+                    {isError && (
+                        <p>Failed to load addresses.</p>
+                    )}
+
+                    {!isLoading && !isError && addresses.length === 0 && (
+                        <p>No saved addresses found.</p>
+                    )}
+
+
+                    {!isLoading && !isError && Array.isArray(addresses) &&
+                        addresses.map((address) => (
+                            <label
+                                key={address.id}
+                                className="checkout-address-option"
+                            >
+                                <input
+                                    type="radio"
+                                    name="deliveryAddress"
+                                    value={address.id}
+                                    checked={selectedAddressId === address.id}
+                                    onChange={() => {
+                                        setSelectedAddressId(address.id);
+                                        setAddressError("");
+                                        setIsValidated(false);
+                                    }}
+                                />
+
+                                <span>
+                                    <strong>{address.label}</strong>
+                                    <span>{address.street}, {address.city}</span>
+                                    <small>{address.details}</small>
+                                </span>
+                            </label>
+
+                        ))}
+
+                </section>
+                {addressError && (
+                    <p className="checkout-error">{addressError}</p>
+                )}
+                <Link to="/addresses" className="checkout-add-address">
+                    + Add New Address
+                </Link>
+
+                <section className="checkout-summary">
+                    <h2>Order Summary</h2>
+
+                    {items.map((item) => (
+                        <div
+                            className="checkout-summary-row"
+                            key={item.productId}
+                        >
+                            <span>
+                                {item.name} × {item.quantity}
+                            </span>
+
+                            <strong>
+                                ${(item.price * item.quantity).toFixed(2)}
+                            </strong>
+                        </div>
+                    ))}
+
+                    <div className="checkout-summary-total">
+                        <strong>Subtotal</strong>
+                        <strong>${total.toFixed(2)}</strong>
+                    </div>
+                </section>
+
+                <button type="submit" className="checkout-submit">
+                    Validate Checkout
+                </button>
+
+                {isValidated && (
+                    <p className="checkout-success">
+                        Your checkout information and delivery address are valid!
+                        Order placement will be added in the next task.
+                    </p>
+                )}
+            </form>
+        </main>
+    );
+};
+
+export default Checkout;

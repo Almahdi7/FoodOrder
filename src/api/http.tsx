@@ -4,7 +4,8 @@ import { tokenStorage } from '@/utils/tokenStorage'
 export const UNAUTHORIZED_EVENT = 'auth:unauthorized'
 
 export const http = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: "http://localhost:3000/",
+  timeout:10000,
   headers: { 'Content-Type': 'application/json' },
 })
 

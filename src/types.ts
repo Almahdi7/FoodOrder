@@ -22,6 +22,8 @@ export type OrderStatus = "pending" | "preparing" | "delivered" | "cancelled";
 
 export interface Order {
   id: string;
+  customerName: string;
+  createdAt: string; // ISO date, e.g. "2026-11-03T11:54:00.000Z"
   items: CartItem[];
   total: number;
   status: OrderStatus;
@@ -39,7 +41,7 @@ export interface ApiError {
 }
 
 export interface Address {
-  id: string;
+  id: string | number;
   details: string;
   label: string;
   street: string;

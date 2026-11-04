@@ -1,56 +1,36 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "@/layouts/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
-import PlaceholderPage from "@/components/PlaceholderPage";
-import LoginPage from "@/features/auth/LoginPage";
-import RegisterPage from "@/features/auth/RegisterPage";
-import UiKitPreview from "@/pages/UiKitPreview";
-import RestaurantsPage from "@/features/restaurants/RestaurantsPage";
-import AddressesPage from "@/features/profile/AddressesPage";
-// Each member replaces ONLY the lines marked with their letter.
-const ph = (title: string, owner: string) => (
-  <PlaceholderPage title={title} owner={owner} />
-);
+import NotFoundPage from "@/pages/NotFoundPage";
+import { publicRoutes } from "./publicRoutes";
+import { authRoutes } from "@/features/auth/routes";
+import {
+  profileRoutes,
+  customerProfileRoutes,
+} from "@/features/profile/routes";
+import { cartPublicRoutes, cartRoutes } from "@/features/cart/routes";
+import { ownerRoutes } from "@/features/owner/routes";
 
 export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
-      // ---------- Public ----------
-      { path: "/", element: ph("Home", "N") }, // N
-      { path: "/restaurants", element: <RestaurantsPage /> }, // N
-      { path: "/restaurants/:id", element: ph("Restaurant Menu", "N") }, // N
-      { path: "/products/:id", element: ph("Product Details", "N") }, // N
-      { path: "/ui-kit", element: <UiKitPreview /> }, // N
-      { path: "/login", element: <LoginPage /> }, // M
-      { path: "/register", element: <RegisterPage /> }, // M
-      { path: "/cart", element: ph("Cart", "L") }, // L
-
-      // ---------- Customer only ----------
+      ...publicRoutes,
+      ...authRoutes,
+      ...cartPublicRoutes,
+      {
+        element: <ProtectedRoute />,
+        children: profileRoutes,
+      },
       {
         element: <ProtectedRoute allowedRoles={["customer"]} />,
-        children: [
-          { path: "/checkout", element: ph("Checkout", "L") }, // L
-          { path: "/orders", element: ph("My Orders", "L") }, // L
-          { path: "/orders/:id", element: ph("Order Details", "L") }, // L
-          { path: "/profile", element: ph("Profile", "M") }, // M
-          { path: "/addresses", element: <AddressesPage /> },
-        ],
+        children: [...cartRoutes, ...customerProfileRoutes],
       },
-
-      // ---------- Restaurant owner only ----------
       {
         element: <ProtectedRoute allowedRoles={["owner"]} />,
-        children: [
-          { path: "/owner", element: ph("Owner Dashboard", "R") }, // R
-          { path: "/owner/restaurant", element: ph("Restaurant Profile", "R") }, // R
-          { path: "/owner/products", element: ph("Manage Products", "R") }, // R
-          { path: "/owner/categories", element: ph("Manage Categories", "R") }, // R
-          { path: "/owner/orders", element: ph("Manage Orders", "R") }, // R
-        ],
+        children: ownerRoutes,
       },
-
-      { path: "*", element: ph("404 Not Found", "M") }, // M
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);

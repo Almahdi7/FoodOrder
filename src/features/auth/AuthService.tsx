@@ -4,6 +4,7 @@ import type {
   AuthResponse,
   LoginPayload,
   RegisterPayload,
+  UpdateProfilePayload,
 } from "@/features/auth/Types";
 
 export const authService = {
@@ -14,4 +15,6 @@ export const authService = {
     http.post<AuthResponse>("/auth/register", payload).then((r) => r.data),
 
   me: () => http.get<User>("/auth/me").then((r) => r.data),
+  updateProfile: (payload: UpdateProfilePayload) =>
+    http.patch<User>("/auth/me", payload).then((r) => r.data),
 };
