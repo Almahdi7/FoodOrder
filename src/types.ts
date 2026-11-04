@@ -41,7 +41,7 @@ export interface ApiError {
 }
 
 export interface Address {
-  id: string;
+  id: string | number;
   details: string;
   label: string;
   street: string;

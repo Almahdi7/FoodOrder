@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import type { Category } from "../types/Category";
-import useCategories from "../hooks/useCategories";
 import {
   addCategory,
   deleteCategory,
@@ -8,6 +7,7 @@ import {
 } from "../api/categoeyService";
 import CategoriesTable from "../components/CategoriesTable";
 import CategoryModal from "../components/CategoryModal";
+import useCategories from "../hooks/useCategories";
 
 const initialCategoryState: Category = {
   id: 0,

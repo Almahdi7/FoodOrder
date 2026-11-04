@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write src",
-    "json-server": "json-server --watch src/features/owner/db.json --port 3000"
+    "json-server": "json-server --watch db.json --port 3000"
   },
   "dependencies": {
     "@hookform/resolvers": "^6.0.1",
