@@ -7,6 +7,7 @@ interface ProductsTableProps {
         onDelete: (id: number) => void;
     }
 
+
 const ProductsTable = ({ products, onEdit, onDelete }: ProductsTableProps) => {
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
@@ -27,11 +28,11 @@ const ProductsTable = ({ products, onEdit, onDelete }: ProductsTableProps) => {
               <td className="p-3">
                 <img 
                   src={product.thumbnail} 
-                  alt={product.title} 
+                  alt={product.name} 
                   className="w-12 h-12 object-cover rounded-md border" 
                 />
               </td>
-              <td className="p-3 font-medium text-gray-900">{product.title}</td>
+              <td className="p-3 font-medium text-gray-900">{product.name}</td>
               <td className="p-3 text-gray-600 capitalize">{product.category}</td>
               <td className="p-3 text-green-600 font-semibold">${product.price}</td>
               <td className="p-3 text-gray-600">{product.stock}</td>
