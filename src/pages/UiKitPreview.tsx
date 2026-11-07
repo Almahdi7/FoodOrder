@@ -2,8 +2,10 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import ErrorMessage from '@/components/ui/ErrorMessage'
+import { useToast } from '@/components/ui/useToast'
 
 export default function UiKitPreview() {
+  const toast = useToast()
   return (
         <div className="container-page flex flex-col gap-8 py-10">
       <h1 className="page-title">UI Kit</h1>
@@ -47,6 +49,20 @@ export default function UiKitPreview() {
           />
         </div>
       </section>
+      <section>
+  <h2 className="section-title mb-3">Toast</h2>
+  <div className="flex flex-wrap gap-3">
+    <button className="btn btn-primary" onClick={() => toast.success('Saved successfully')}>
+      Success
+    </button>
+    <button className="btn btn-outline" onClick={() => toast.error('Something went wrong')}>
+      Error
+    </button>
+    <button className="btn btn-ghost" onClick={() => toast.info('Just so you know')}>
+      Info
+    </button>
+  </div>
+</section>
     </div>
   )
 }

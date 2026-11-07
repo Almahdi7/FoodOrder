@@ -6,6 +6,7 @@ import { AuthProvider } from '@/features/auth/AuthProvider'
 import { router } from '@/routes'
 import CartProvider from '@/features/cart/CartProvider'
 import './index.css'
+import { ToastProvider } from '@/components/ui/ToastProvider'
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
@@ -16,7 +17,9 @@ createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <CartProvider>
-        <RouterProvider router={router} />
+        <ToastProvider>
+    <RouterProvider router={router} />
+  </ToastProvider>
       </CartProvider>
     </AuthProvider>
   </QueryClientProvider>
